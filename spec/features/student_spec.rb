@@ -10,8 +10,8 @@ end
 
 describe 'Multiple students' do
   it 'shows them on the index page' do
-    Student.create!(first_name: "Daenerys", last_name: "Targaryen")
-    Student.create!(first_name: "Lindsey", last_name: "Stirling")
+    Student.find_or_create_by(first_name: "Daenerys", last_name: "Targaryen")
+    Student.find_or_create_by(first_name: "Lindsey", last_name: "Stirling")
 
     visit students_path
     expect(page).to have_content(/Daenerys|Lindsey/)
@@ -53,7 +53,7 @@ end
 
 describe 'Activate page' do
   before do
-    @student = Student.create!(first_name: "Daenerys", last_name: "Targaryen")
+    @student = Student.find_or_create_by(first_name: "Daenerys", last_name: "Targaryen")
   end
 
   it "Should mark an inactive stuent as active" do
@@ -78,7 +78,7 @@ end
 
 describe 'linking from the index page to the show page' do
   it 'index page links to post page' do
-    @student = Student.create!(first_name: "Daenerys", last_name: "Targaryen")
+    @student = Student.find_or_create_by(first_name: "Daenerys", last_name: "Targaryen")
     visit students_path
     expect(page).to have_link(@student.to_s, href: student_path(@student))
   end
